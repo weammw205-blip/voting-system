@@ -44,12 +44,6 @@ This project is a simple university voting system that allows users to create ac
 
 ---
 
-## Technologies Used
-(Add here your programming language / framework, for example:)
-- Python / Java / Web Technologies
-
----
-
 ## How It Works
 1. User registers and logs in
 2. User views available polls
