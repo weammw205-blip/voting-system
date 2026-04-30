@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Poll (Admin)</title>
+    <link rel="stylesheet" href="create.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Create New Poll</h2>
+
+        <input type="text" id="question" placeholder="Enter poll question">
+
+        <input type="text" id="optionInput" placeholder="Enter option">
+        <button onclick="addOption()">Add Option</button>
+
+        <ul id="optionsList"></ul>
+
+        <button onclick="savePoll()">Save Poll</button>
+
+        <p id="msg"></p>
+    </div>
+
+    <script src="create.js"></script>
+</body>
+
+</html>
