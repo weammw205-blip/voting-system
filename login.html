@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voting System - Login/Register</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+<div class="container">
+  <div id="registerForm">
+    <h2>Register</h2>
+    <input type="text" id="regUsername" placeholder="Username">
+    <input type="password" id="regPassword" placeholder="Password">
+    <button onclick="register()">Create Account</button>
+    <div class="toggle" onclick="showLogin()">Already have an account? Login</div>
+    <div class="message" id="regMsg"></div>
+  </div>
+
+  <div id="loginForm" class="hidden">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div class="toggle" onclick="showRegister()">Create new account</div>
+    <div class="message" id="loginMsg"></div>
+  </div>
+
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>
