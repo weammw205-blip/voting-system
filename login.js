@@ -50,7 +50,7 @@ function login() {
     document.getElementById("loginMsg").innerText = "Login successful!";
     document.getElementById("loginMsg").classList.add("success");
 
-    window.location.href = "/voting-system/view-polls.html";
+    window.location.href = "view-polls.html";
   } else {
     document.getElementById("loginMsg").innerText = "Invalid credentials";
   }
