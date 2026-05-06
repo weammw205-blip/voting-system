@@ -1,3 +1,4 @@
+
 // Show forms
 function showLogin() {
   document.getElementById("registerForm").classList.add("hidden");
