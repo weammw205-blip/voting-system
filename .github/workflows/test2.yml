@@ -1,0 +1,59 @@
+name: Voting System CI
+
+on:
+  push:
+    branches:
+      - vote-in-poll-clean
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 🔹 تأكد الملفات الأساسية
+      - name: Check HTML exists
+        run: test -f vote.html
+
+      - name: Check CSS exists
+        run: test -f vote.css
+
+      - name: Check JS exists
+        run: test -f vote.js
+
+      # 🔹 فحص JavaScript بدون أخطاء
+      - name: Validate JS syntax
+        run: node -c vote.js
+
+      # 🔥 Test منطقي لمحاكاة التصويت
+      - name: Simulate Voting Logic Test
+        run: |
+          node -e "
+            console.log('Starting vote system test...');
+
+            const poll = {
+              id: 1,
+              question: 'Who is your favorite programming language?',
+              options: ['JS','Python','Java','C++']
+            };
+
+            let votes = {};
+
+            function submitVote(user, choice){
+              if(!votes[user]) votes[user] = {};
+
+              if(votes[user][poll.id]){
+                return 'already voted';
+              }
+
+              votes[user][poll.id] = choice;
+              return 'vote saved';
+            }
+
+            console.log(submitVote('weam','JS'));
+            console.log(submitVote('weam','Python'));
+            console.log('CI test finished ✔');
+          "
