@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -42,19 +42,3 @@ jobs:
 
       - name: Success message
         run: echo "CI passed successfully"
-
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
