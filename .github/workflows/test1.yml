@@ -1,58 +1,60 @@
 name: CI/CD Pipeline
 
 on:
-push:
-branches:
-- main
-- feature-update-clean
-pull_request:
-branches:
-- main
+  push:
+    branches:
+      - main
+      - feature-update-clean
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
-build-and-test:
-runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest
 
-steps:
-- name: Checkout code
-  uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-- name: Setup Node.js
-  uses: actions/setup-node@v3
-  with:
-    node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-- name: Initialize project
-  run: npm init -y
+      - name: Initialize project
+        run: npm init -y
 
-- name: Install ESLint
-  run: npm install eslint
+      - name: Install ESLint
+        run: npm install eslint
 
-- name: Check project files
-  run: |
-    echo "Checking required files..."
-    test -f view-polls.html
-    test -f view-polls.js
-    test -f view-polls.css
+      - name: Check project files
+        run: |
+          echo "Checking required files..."
+          test -f view-polls.html
+          test -f view-polls.js
+          test -f view-polls.css
 
-- name: Run ESLint
-  run: |
-    npx eslint view-polls.js || true
+      - name: Run ESLint
+        run: |
+          npx eslint view-polls.js || true
 
-- name: Success message
-  run: echo "CI passed successfully 🎉"
+      - name: Success message
+        run: echo "CI passed successfully"
 
-deploy:
-needs: build-and-test
-runs-on: ubuntu-latest
-if: github.ref == 'refs/heads/main'
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
 
-steps:
-- name: Checkout code
-  uses: actions/checkout@v3
+    if: github.ref == 'refs/heads/main'
 
-- name: Deploy to GitHub Pages
-  uses: peaceiris/actions-gh-pages@v3
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: .
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
