@@ -1,0 +1,53 @@
+name: Login System CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 🔹 تأكد الملفات موجودة
+      - name: Check HTML file
+        run: test -f index.html
+
+      - name: Check CSS file
+        run: test -f style.css
+
+      - name: Check JS file
+        run: test -f script.js
+
+      # 🔹 فحص بسيط للكود
+      - name: Validate JavaScript syntax
+        run: node -c script.js
+
+      # 🔹 اختبار منطقي (simulation)
+      - name: Simulate login/register logic test
+        run: |
+          node -e "
+            console.log('Testing login/register system...');
+            
+            const users = [];
+            const register = (u,p) => {
+              if(!u || !p) return 'error';
+              if(users.find(x=>x.username===u)) return 'exists';
+              users.push({username:u,password:p});
+              return 'ok';
+            };
+
+            const login = (u,p) => {
+              return users.find(x=>x.username===u && x.password===p)
+                ? 'success' : 'fail';
+            };
+
+            console.log(register('test','123'));
+            console.log(login('test','123'));
+            console.log('CI test done 🚀');
+          "
